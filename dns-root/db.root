@@ -1,0 +1,13 @@
+$TTL	60000
+@	IN	SOA	ROOT-SERVER.	admin.ROOT-SERVER. (
+	1234
+	30
+	15
+	60000
+	0
+)
+@	IN	NS	ROOT-SERVER.
+ROOT-SERVER.	IN	A	10.0.0.10
+br.		IN	NS	dns.com.
+dns.br.		IN	A	10.0.1.10
+

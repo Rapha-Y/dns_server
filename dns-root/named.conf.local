@@ -6,3 +6,8 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
+zone "." {
+	type master;
+	file "/etc/bind/db.root";
+};
+

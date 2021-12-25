@@ -13,6 +13,25 @@ node n1 {
     iconcoords {48.0 72.0}
     labelcoords {48.0 104.0}
     interface-peer {eth0 n13}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	dirs=('/etc/bind', '/run/named', '/var/cache/bind', '/var/lib/bind', '/var/run/named', '/var/log', )
+	files=('/startnamed.sh', )
+	cmdup=('bash startnamed.sh', '/etc/init.d/named start', )
+	cmddown=('/etc/init.d/named stop', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:/startnamed.sh
+	custom-command /startnamed.sh
+	config {
+	cp /root/dns-server/dns-root/* /etc/bind
+	/etc/init.d/named start
+	}
+    }
+    services {DefaultRoute SSH UserDefined}
 }
 
 node n2 {
