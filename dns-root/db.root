@@ -8,6 +8,6 @@ $TTL	60000
 )
 @	IN	NS	ROOT-SERVER.
 ROOT-SERVER.	IN	A	10.0.0.10
-br.		IN	NS	dns.com.
+br.		IN	NS	dns.br.
 dns.br.		IN	A	10.0.1.10
 
