@@ -74,7 +74,7 @@ node n3 {
     type router
     model host
     network-config {
-	hostname tld2
+	hostname dns-tld2
 	!
 	interface eth0
 	 ip address 10.0.2.10/24
@@ -85,6 +85,25 @@ node n3 {
     iconcoords {734.0 71.0}
     labelcoords {734.0 103.0}
     interface-peer {eth0 n15}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	dirs=('/etc/bind', '/run/named', '/var/cache/bind', '/var/lib/bind', '/var/run/named', '/var/log', )
+	files=('/startnamed.sh', )
+	cmdup=('bash startnamed.sh', '/etc/init.d/named start', )
+	cmddown=('/etc/init.d/named stop', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:/startnamed.sh
+	custom-command /startnamed.sh
+	config {
+	cp /root/dns-server/dns-tld2/* /etc/bind/
+	/etc/init.d/named start
+	}
+    }
+    services {DefaultRoute SSH UserDefined}
 }
 
 node n4 {
@@ -197,7 +216,7 @@ node n8 {
     type router
     model host
     network-config {
-	hostname auth2
+	hostname dns-a2
 	!
 	interface eth0
 	 ip address 10.0.5.11/24
@@ -208,6 +227,26 @@ node n8 {
     iconcoords {939.0 508.0}
     labelcoords {939.0 540.0}
     interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	dirs=('/etc/bind', '/run/named', '/var/cache/bind', '/var/lib/bind', '/var/run/named', '/var/log', )
+	files=('/startnamed.sh', )
+	cmdup=('bash startnamed.sh', '/etc/init.d/named start', )
+	cmddown=('/etc/init.d/named stop', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:/startnamed.sh
+	custom-command /startnamed.sh
+	config {
+	cp /root/dns-server/dns-a2/* /etc/bind/
+	/etc/init.d/named start
+	
+	}
+    }
+    services {DefaultRoute SSH UserDefined}
 }
 
 node n9 {
@@ -237,7 +276,7 @@ node n9 {
 	custom-config-id service:UserDefined:/etc/resolv.conf
 	custom-command /etc/resolv.conf
 	config {
-	nameserver 10.0.3.11
+	nameserver 10.0.4.10
 	}
     }
     services {DefaultRoute UserDefined}
@@ -604,6 +643,23 @@ annotation a1 {
 annotation a2 {
     type text
     iconcoords {63.0 504.0}
+    label {}
+    canvas c1
+}
+
+annotation a3 {
+    iconcoords {850.0 557.0}
+    type text
+    label {maps.google.com}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize 12
+    canvas c1
+}
+
+annotation a4 {
+    type text
+    iconcoords {912.0 552.0}
     label {}
     canvas c1
 }

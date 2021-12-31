@@ -6,8 +6,8 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
-zone "unifesp.br" {
+zone "google.com" {
 	type master;
-	file "/etc/bind/db.unifesp.br";	
+	file "/etc/bind/db.google.com";	
 };
 
