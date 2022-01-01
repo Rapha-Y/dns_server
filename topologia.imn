@@ -46,8 +46,8 @@ node n2 {
 	!
     }
     canvas c1
-    iconcoords {384.0 72.0}
-    labelcoords {384.0 104.0}
+    iconcoords {384.0 73.0}
+    labelcoords {384.0 105.0}
     interface-peer {eth0 n14}
     custom-config {
 	custom-config-id service:UserDefined
@@ -82,8 +82,8 @@ node n3 {
 	!
     }
     canvas c1
-    iconcoords {734.0 71.0}
-    labelcoords {734.0 103.0}
+    iconcoords {734.0 72.0}
+    labelcoords {734.0 104.0}
     interface-peer {eth0 n15}
     custom-config {
 	custom-config-id service:UserDefined
