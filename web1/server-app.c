@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <unistd.h>
 
 #define MAX 80
 #define PORT 8080
@@ -40,10 +41,10 @@ void chat(int connfd) {
 
 int main() {
     int sockfd, connfd, len;
-    struct sockaddrs_in servaddr, cli;
+    struct sockaddr_in servaddr, cli;
 
     //create + verify socket
-    socketfd = socket(AF_INET, SOCK_STREAM, 0);
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
         printf("Socket creation failed\n");
         exit(0);
