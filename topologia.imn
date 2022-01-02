@@ -27,7 +27,7 @@ node n1 {
 	custom-config-id service:UserDefined:/startnamed.sh
 	custom-command /startnamed.sh
 	config {
-	cp /root/dns-server/dns-root/* /etc/bind
+	cp /root/dns_server/dns-root/* /etc/bind
 	/etc/init.d/named start
 	}
     }
@@ -63,7 +63,7 @@ node n2 {
 	custom-config-id service:UserDefined:/startnamed.sh
 	custom-command /startnamed.sh
 	config {
-	cp /root/dns-server/dns-tld1/* /etc/bind/
+	cp /root/dns_server/dns-tld1/* /etc/bind/
 	/etc/init.d/named start
 	}
     }
@@ -99,7 +99,7 @@ node n3 {
 	custom-config-id service:UserDefined:/startnamed.sh
 	custom-command /startnamed.sh
 	config {
-	cp /root/dns-server/dns-tld2/* /etc/bind/
+	cp /root/dns_server/dns-tld2/* /etc/bind/
 	/etc/init.d/named start
 	}
     }
@@ -118,8 +118,8 @@ node n4 {
 	!
     }
     canvas c1
-    iconcoords {72.0 504.0}
-    labelcoords {72.0 536.0}
+    iconcoords {71.0 504.0}
+    labelcoords {71.0 536.0}
     interface-peer {eth0 n10}
     custom-config {
 	custom-config-id service:UserDefined
@@ -135,7 +135,7 @@ node n4 {
 	custom-config-id service:UserDefined:/startnamed.sh
 	custom-command /startnamed.sh
 	config {
-	cp /root/dns-server/dns-local/* /etc/bind/
+	cp /root/dns_server/dns-local/* /etc/bind/
 	/etc/init.d/named start
 	}
     }
@@ -171,8 +171,8 @@ node n6 {
 	!
     }
     canvas c1
-    iconcoords {624.0 504.0}
-    labelcoords {624.0 536.0}
+    iconcoords {624.0 503.0}
+    labelcoords {624.0 535.0}
     interface-peer {eth0 n11}
     custom-config {
 	custom-config-id service:UserDefined
@@ -188,7 +188,7 @@ node n6 {
 	custom-config-id service:UserDefined:/startnamed.sh
 	custom-command /startnamed.sh
 	config {
-	cp /root/dns-server/dns-a1/* /etc/bind/
+	cp /root/dns_server/dns-a1/* /etc/bind/
 	/etc/init.d/named start
 	}
     }
@@ -207,8 +207,8 @@ node n7 {
 	!
     }
     canvas c1
-    iconcoords {765.0 511.0}
-    labelcoords {765.0 543.0}
+    iconcoords {765.0 510.0}
+    labelcoords {765.0 542.0}
     interface-peer {eth0 n12}
 }
 
@@ -224,8 +224,8 @@ node n8 {
 	!
     }
     canvas c1
-    iconcoords {939.0 508.0}
-    labelcoords {939.0 540.0}
+    iconcoords {939.0 506.0}
+    labelcoords {939.0 538.0}
     interface-peer {eth0 n12}
     custom-config {
 	custom-config-id service:UserDefined
@@ -241,7 +241,7 @@ node n8 {
 	custom-config-id service:UserDefined:/startnamed.sh
 	custom-command /startnamed.sh
 	config {
-	cp /root/dns-server/dns-a2/* /etc/bind/
+	cp /root/dns_server/dns-a2/* /etc/bind/
 	/etc/init.d/named start
 	
 	}
@@ -261,8 +261,8 @@ node n9 {
 	!
     }
     canvas c1
-    iconcoords {264.0 504.0}
-    labelcoords {264.0 536.0}
+    iconcoords {263.0 503.0}
+    labelcoords {263.0 535.0}
     interface-peer {eth0 n10}
     custom-config {
 	custom-config-id service:UserDefined
@@ -653,7 +653,7 @@ annotation a3 {
     label {maps.google.com}
     labelcolor black
     fontfamily {Arial}
-    fontsize 12
+    fontsize {12}
     canvas c1
 }
 
