@@ -39,37 +39,44 @@ void chat(int connfd) {
     }
 }
 
-int main() {
+int main(int argc, char **argv) {
+    //./server-app <porta>
+   
+    if(argc != 2){
+	printf("Uso: %s <porta>", argv[0]);
+	return 0;
+      }
+ 
     int sockfd, connfd, len;
     struct sockaddr_in servaddr, cli;
 
-    //create + verify socket
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    //cria e verifica o socket
+    sockfd = socket(AF_INET, SOCK_STREAM, 0); //cria endpoint para comunicacao
     if (sockfd == -1) {
-        printf("Socket creation failed\n");
-        exit(0);
+        perror("socket");
+        return 0;
     } else
-        printf("Socket successfully created\n");
+        printf("Socket criado com sucesso\n");
     bzero((&servaddr), sizeof(servaddr));
 
-    //assign IP, PORT
+    //atribuindo IP e PORTA
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    servaddr.sin_port = htons(PORT);
+    servaddr.sin_port = htons(atoi(argv[1]));
 
-    //bind socket to IP + verify
+    //bind socket para o IP
     if ((bind(sockfd, (SA*)&servaddr, sizeof(servaddr))) != 0) {
-        printf("Socket bind failed\n");
+        printf("Socket bind falhou\n");
         exit(0);
     } else
-        printf("Socket successfully binded\n");
+        printf("Socket bind fncionou\n");
 
-    //listen + verify
-    if ((listen(sockfd, 5)) != 0) {
-        printf("Listen failed\n");
+    //listen 
+    if ((listen(sockfd, 5)) != 0) { //fila com 5 clientes
+        printf("Listen erro\n");
         exit(0);
     } else 
-        printf("Server listening\n");
+        printf("Servidor escutando...\n");
     len = sizeof(cli);
 
     //accept packet from client + verify

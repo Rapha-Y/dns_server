@@ -29,7 +29,12 @@ void chat(int sockfd) {
     }
 }
 
-int main() {
+int main(int argc, char **argv) {
+    //.client-app <porta>
+   if(argc != 2){
+	printf("Uso: %s <porta>",argv[0]);
+	return 0;
+   }
     int sockfd, connfd;
     struct sockaddr_in servaddr, cli;
 
@@ -51,7 +56,7 @@ int main() {
     //assign IP, PORT
     servaddr.sin_family = AF_INET;
     //servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    servaddr.sin_port = htons(PORT);
+    servaddr.sin_port = htons(atoi(argv[1]));
 
     //conn client socket to server socket
     if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) {
