@@ -42,9 +42,15 @@ int main() {
         printf("Socket successfuly created\n");
     bzero(&servaddr, sizeof(servaddr));
 
+    struct hostent *he;
+    if ((he = gethostbyname("www.unifesp.br")) == NULL)
+        exit(1);
+
+    memcpy(&servaddr.sin_addr, he->h_addr_list[0], he->h_length);
+
     //assign IP, PORT
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    //servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     servaddr.sin_port = htons(PORT);
 
     //conn client socket to server socket
