@@ -174,7 +174,7 @@ node n5 {
 	cp /root/dns_server/web1/* /web1/
 	}
     }
-    services {DefaultRoute UserDefined}
+    services {DefaultRoute}
 }
 
 node n6 {
