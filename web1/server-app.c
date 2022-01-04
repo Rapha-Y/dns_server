@@ -7,31 +7,32 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
-#define MAX 80
-#define PORT 8080
+#define MAX 100
 #define SA struct sockaddr
 
 void chat(int connfd) {
     char buff[MAX];
     int n;
 
-    //infinite loop
+    //loop infinito
     for (;;) {
-        bzero(buff, MAX);
-        
-        //read msg from client + copy to buff
+        bzero(buff, MAX); // seta como 0 todos os bites do vetor buff
+
+        // le a mensagem  do cliente e copia para o buffer
         read(connfd, buff, sizeof(buff));
-        //print buff
-        printf("From client: %s\t To client: ", buff);
+
+        //printa o buffer
+        printf("De cliente: %s\t Para cliente: ", buff);
         bzero(buff, MAX);
         n = 0;
-        //copy msg from buff
+
+        //copia a mensagem do buffer
         while ((buff[n++] = getchar()) != '\n');
-        
-        //send buff to client
+
+        //envia o buffer para o client
         write(connfd, buff, sizeof(buff));
 
-        //exit server and chat
+        //encerra o server e o chat
         if (strncmp("exit", buff, 4) == 0) {
             printf("Server exit\n");
             break;
@@ -40,13 +41,13 @@ void chat(int connfd) {
 }
 
 int main(int argc, char **argv) {
+
     //./server-app <porta>
-   
     if(argc != 2){
 	printf("Uso: %s <porta>", argv[0]);
 	return 0;
       }
- 
+
     int sockfd, connfd, len;
     struct sockaddr_in servaddr, cli;
 
@@ -57,7 +58,7 @@ int main(int argc, char **argv) {
         return 0;
     } else
         printf("Socket criado com sucesso\n");
-    bzero((&servaddr), sizeof(servaddr));
+    bzero((&servaddr), sizeof(servaddr)); // seta 0's em servaddr
 
     //atribuindo IP e PORTA
     servaddr.sin_family = AF_INET;
@@ -69,27 +70,28 @@ int main(int argc, char **argv) {
         printf("Socket bind falhou\n");
         exit(0);
     } else
-        printf("Socket bind fncionou\n");
+        printf("Socket bind funcionou\n");
 
     //listen 
     if ((listen(sockfd, 5)) != 0) { //fila com 5 clientes
-        printf("Listen erro\n");
+        perror("Listen\n");
         exit(0);
     } else 
         printf("Servidor escutando...\n");
     len = sizeof(cli);
 
-    //accept packet from client + verify
+    //accept
+    // aceita pacotes do cliente
     connfd = accept(sockfd, (SA*)&cli, &len);
     if (connfd < 0) {
-        printf("Server accept failed\n");
+        perror("accept\n");
         exit(0);
     } else
-        printf("Server accept the client\n");
+        printf("Servidor aceitou o client\n");
 
-    //chat between client and server
+    //executa o chat entre o cliente e servidor
     chat(connfd);
 
-    //close socket
-    close(sockfd);
+    //close
+    close(sockfd); //fecha o  socket
 }

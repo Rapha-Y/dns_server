@@ -6,22 +6,32 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#define MAX 80
-#define PORT 8080
+#define MAX 100
 #define SA struct sockaddr
 
 void chat(int sockfd) {
     char buff[MAX];
     int n;
+
+    // loop infinito
     for (;;) {
-        bzero(buff, sizeof(buff));
-        printf("Enter the msg: ");
+        bzero(buff, sizeof(buff)); // seta 0's no buffer
+        printf("Mensagem: ");
         n = 0;
+	
+	//copia a mensagem do buffer
         while ((buff[n++] = getchar()) != '\n');
+	
+	//envia o buffer para o servidor
         write(sockfd, buff, sizeof(buff));
+
         bzero(buff, sizeof(buff));
+	
+	//le a mensagem do servidor e cpoia para o buffer
         read(sockfd, buff, sizeof(buff));
-        printf("From server: %s", buff);
+        printf("De servidor: %s", buff);
+
+	//exit
         if ((strncmp(buff, "exit", 4)) == 0) {
             printf("Client exit\n");
             break;
@@ -38,13 +48,13 @@ int main(int argc, char **argv) {
     int sockfd, connfd;
     struct sockaddr_in servaddr, cli;
 
-    //create + verify socket
+    //cria e verifica o  socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
-        printf("Socket creation failed\n");
+        perror("socket\n");
         exit(0);
     } else
-        printf("Socket successfuly created\n");
+        printf("criaçao do socket concluida com sucesso\n");
     bzero(&servaddr, sizeof(servaddr));
 
     struct hostent *he;
@@ -53,21 +63,21 @@ int main(int argc, char **argv) {
 
     memcpy(&servaddr.sin_addr, he->h_addr_list[0], he->h_length);
 
-    //assign IP, PORT
+    //atribui IP e PORTA
     servaddr.sin_family = AF_INET;
-    //servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    //atribuicao do sin_addr feita acima "gethostbyname"
     servaddr.sin_port = htons(atoi(argv[1]));
 
-    //conn client socket to server socket
+    //conexao entre o socket do servidor e do cliente
     if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) {
-        printf("Conn with the server failed\n");
+        perror("connect\n");
         exit(0);
     } else
-        printf("Conn to the server\n");
+        printf("Conexao com o servidor realizada com sucesso\n");
 
-    //chat func
+    //chat
     chat(sockfd);
 
-    //close socket
+    //encerra socket
     close(sockfd);
 }
