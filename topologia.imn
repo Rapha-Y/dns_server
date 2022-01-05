@@ -161,20 +161,19 @@ node n5 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	dirs=('/root/dns_server/web1', )
-	files=('startcopy.sh', )
+	files=('/startcopy.sh', )
 	cmdup=('bash startcopy.sh', )
 	}
     }
     custom-config {
-	custom-config-id service:UserDefined:startcopy.sh
-	custom-command startcopy.sh
+	custom-config-id service:UserDefined:/startcopy.sh
+	custom-command /startcopy.sh
 	config {
-	mkdir web1
+	mkdir /web1
 	cp /root/dns_server/web1/* /web1/
 	}
     }
-    services {DefaultRoute}
+    services {DefaultRoute UserDefined}
 }
 
 node n6 {
@@ -287,7 +286,16 @@ node n9 {
 	custom-command UserDefined
 	config {
 	dirs=('/etc', )
-	files=('/etc/resolv.conf', )
+	files=('/etc/resolv.conf', '/startcopy.sh', )
+	cmdup=('bash startcopy.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:/startcopy.sh
+	custom-command /startcopy.sh
+	config {
+	mkdir /client
+	cp /root/dns_server/client/* /client/
 	}
     }
     custom-config {
