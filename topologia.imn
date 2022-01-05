@@ -10,8 +10,8 @@ node n1 {
 	!
     }
     canvas c1
-    iconcoords {48.0 72.0}
-    labelcoords {48.0 104.0}
+    iconcoords {52.0 67.33333333333333}
+    labelcoords {52.0 99.33333333333333}
     interface-peer {eth0 n13}
     custom-config {
 	custom-config-id service:UserDefined
@@ -46,8 +46,8 @@ node n2 {
 	!
     }
     canvas c1
-    iconcoords {384.0 73.0}
-    labelcoords {384.0 105.0}
+    iconcoords {387.3333333333333 67.66666666666667}
+    labelcoords {387.3333333333333 99.66666666666667}
     interface-peer {eth0 n14}
     custom-config {
 	custom-config-id service:UserDefined
@@ -118,8 +118,8 @@ node n4 {
 	!
     }
     canvas c1
-    iconcoords {71.0 504.0}
-    labelcoords {71.0 536.0}
+    iconcoords {69.66666666666667 496.6666666666667}
+    labelcoords {69.66666666666667 528.6666666666666}
     interface-peer {eth0 n10}
     custom-config {
 	custom-config-id service:UserDefined
@@ -154,23 +154,22 @@ node n5 {
 	!
     }
     canvas c1
-    iconcoords {429.0 515.0}
-    labelcoords {429.0 547.0}
+    iconcoords {428.0 515.0}
+    labelcoords {428.0 547.0}
     interface-peer {eth0 n11}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	dirs=('/root/dns_server/web1', )
-	files=('startcopy.sh', )
+	files=('/startcopy.sh', )
 	cmdup=('bash startcopy.sh', )
 	}
     }
     custom-config {
-	custom-config-id service:UserDefined:startcopy.sh
-	custom-command startcopy.sh
+	custom-config-id service:UserDefined:/startcopy.sh
+	custom-command /startcopy.sh
 	config {
-	mkdir web1
+	mkdir /web1
 	cp /root/dns_server/web1/* /web1/
 	}
     }
@@ -228,6 +227,29 @@ node n7 {
     iconcoords {765.0 510.0}
     labelcoords {765.0 542.0}
     interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	dirs=
+	files=('/startcopy.sh', )
+	startidx=0
+	cmdup=('bash startcopy.sh', )
+	cmddown=
+	cmdval=
+	meta=Customize this service to do anything upon startup.
+	starttime=0
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:/startcopy.sh
+	custom-command /startcopy.sh
+	config {
+	mkdir /web2
+	cp /root/dns_server/web1/* /web2/
+	}
+    }
+    services {DefaultRoute UserDefined}
 }
 
 node n8 {
@@ -287,7 +309,16 @@ node n9 {
 	custom-command UserDefined
 	config {
 	dirs=('/etc', )
-	files=('/etc/resolv.conf', )
+	files=('/etc/resolv.conf', '/startcopy.sh', )
+	cmdup=('bash startcopy.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:/startcopy.sh
+	custom-command /startcopy.sh
+	config {
+	mkdir /client
+	cp /root/dns_server/client/* /client/
 	}
     }
     custom-config {
