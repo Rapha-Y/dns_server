@@ -18,15 +18,15 @@ void chat(int sockfd) {
         bzero(buff, sizeof(buff)); // seta 0's no buffer
         printf("Mensagem: ");
         n = 0;
-	
+
 	//copia a mensagem do buffer
         while ((buff[n++] = getchar()) != '\n');
-	
+
 	//envia o buffer para o servidor
         write(sockfd, buff, sizeof(buff));
 
         bzero(buff, sizeof(buff));
-	
+
 	//le a mensagem do servidor e cpoia para o buffer
         read(sockfd, buff, sizeof(buff));
         printf("De servidor: %s", buff);
